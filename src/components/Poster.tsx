@@ -6,7 +6,7 @@ interface PosterProps {
 }
 
 export const Poster = forwardRef<HTMLDivElement, PosterProps>(({ state }, ref) => {
-  const { format, primaryColor, backgroundColor, subtitle, date, description, extraInfo, time, footerText, logoUrl, bodyFont, contentFontSizeScale, contentLineHeight } = state;
+  const { format, primaryColor, backgroundColor, textColor, subtitle, date, description, extraInfo, time, footerText, logoUrl, titleImageUrl, bodyFont, contentFontSizeScale, contentLineHeight } = state;
 
   const width = 1080;
   const height = format === '4:5' ? 1350 : 1920;
@@ -41,7 +41,7 @@ export const Poster = forwardRef<HTMLDivElement, PosterProps>(({ state }, ref) =
       className="relative overflow-hidden flex flex-col font-sans"
     >
       <div
-        style={{ backgroundColor }}
+        style={{ backgroundColor, color: textColor }}
         className={`flex-1 w-full h-full relative flex flex-col p-8 ${fontClass}`}
       >
         {/* Yellow Square */}
@@ -57,29 +57,36 @@ export const Poster = forwardRef<HTMLDivElement, PosterProps>(({ state }, ref) =
             {logoUrl ? (
               <img src={logoUrl} alt="Logo" className="h-40 object-contain" />
             ) : (
-              <div className="border-[4px] border-white p-3 px-4 text-white font-black text-[60px] leading-[0.85] tracking-wider text-center font-syne">
+              <div 
+                className="border-[4px] p-3 px-4 font-black text-[60px] leading-[0.85] tracking-wider text-center font-syne"
+                style={{ borderColor: textColor }}
+              >
                 <div>TO</div>
                 <div>MO</div>
               </div>
             )}
-            {!logoUrl && <div className="text-white text-xl mt-2 font-semibold tracking-wide">libreria caffè</div>}
+            {!logoUrl && <div className="text-xl mt-2 font-semibold tracking-wide">libreria caffè</div>}
           </div>
 
           {/* Bottom Left Title */}
-          <div className="text-white font-syne font-semibold text-[130px] leading-[0.85] tracking-tight uppercase">
-            <div>FIORI</div>
-            <div>FRESCHI</div>
-          </div>
+          {titleImageUrl ? (
+            <img src={titleImageUrl} alt="Fiori Freschi Title" className="w-[85%] object-contain object-left-bottom" />
+          ) : (
+            <div className="font-syne font-semibold text-[130px] leading-[0.85] tracking-tight uppercase">
+              <div>FIORI</div>
+              <div>FRESCHI</div>
+            </div>
+          )}
         </div>
 
         {/* Subtitle */}
-        <div className={`text-white text-center tracking-wide font-medium ${format === '4:5' ? 'text-[20px] mt-6' : 'text-[26px] mt-8'}`}>
+        <div className={`text-center tracking-wide font-medium ${format === '4:5' ? 'text-[20px] mt-6' : 'text-[26px] mt-8'}`}>
           {subtitle}
         </div>
 
         {/* Event Info */}
         <div 
-          className={`grid grid-cols-[auto_1fr] ${format === '4:5' ? 'gap-6 mt-8' : 'gap-8 mt-16'} px-4 text-white tracking-tight`}
+          className={`grid grid-cols-[auto_1fr] ${format === '4:5' ? 'gap-6 mt-8' : 'gap-8 mt-16'} px-4 tracking-tight`}
           style={{
             fontSize: format === '4:5' ? `${28 * contentFontSizeScale}px` : `${36 * contentFontSizeScale}px`,
             lineHeight: contentLineHeight
@@ -101,14 +108,14 @@ export const Poster = forwardRef<HTMLDivElement, PosterProps>(({ state }, ref) =
         <div className="flex-1" />
 
         {/* Time */}
-        <div className={`text-white text-right px-4 tracking-tight font-medium ${format === '4:5' ? 'text-[28px] mb-6' : 'text-[36px] mb-8'}`}>
+        <div className={`text-right px-4 tracking-tight font-medium ${format === '4:5' ? 'text-[28px] mb-6' : 'text-[36px] mb-8'}`}>
           {time}
         </div>
 
         {/* Footer Bar */}
         <div
-          style={{ backgroundColor: primaryColor }}
-          className={`w-full text-white text-center font-semibold tracking-widest uppercase shrink-0 ${format === '4:5' ? 'py-4 text-[22px]' : 'py-6 text-[28px]'}`}
+          style={{ backgroundColor: primaryColor, color: textColor }}
+          className={`w-full text-center font-semibold tracking-widest uppercase shrink-0 ${format === '4:5' ? 'py-4 text-[22px]' : 'py-6 text-[28px]'}`}
         >
           {footerText}
         </div>

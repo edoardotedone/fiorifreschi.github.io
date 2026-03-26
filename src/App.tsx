@@ -66,6 +66,14 @@ export default function App() {
     }
   };
 
+  const handleTitleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      handleChange('titleImageUrl', url);
+    }
+  };
+
   return (
     <div className="flex h-screen bg-neutral-100 font-sans text-neutral-900 overflow-hidden">
       {/* Sidebar */}
@@ -125,6 +133,24 @@ export default function App() {
                     className="text-xs text-red-500 mt-2 hover:underline"
                   >
                     Remove Logo
+                  </button>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-neutral-700 mb-1">Title Image (Fiori Freschi)</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleTitleImageUpload}
+                  className="w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-neutral-100 file:text-neutral-700 hover:file:bg-neutral-200 cursor-pointer"
+                />
+                {state.titleImageUrl && (
+                  <button 
+                    onClick={() => handleChange('titleImageUrl', null)}
+                    className="text-xs text-red-500 mt-2 hover:underline"
+                  >
+                    Remove Title Image
                   </button>
                 )}
               </div>
@@ -193,6 +219,23 @@ export default function App() {
                     type="text"
                     value={state.backgroundColor}
                     onChange={(e) => handleChange('backgroundColor', e.target.value)}
+                    className="flex-1 h-10 px-3 rounded-md border border-neutral-300 text-sm uppercase font-mono"
+                  />
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-neutral-700 mb-1">Text Color</label>
+                <div className="flex gap-2">
+                  <input
+                    type="color"
+                    value={state.textColor}
+                    onChange={(e) => handleChange('textColor', e.target.value)}
+                    className="h-10 w-14 p-1 rounded border border-neutral-300 cursor-pointer"
+                  />
+                  <input
+                    type="text"
+                    value={state.textColor}
+                    onChange={(e) => handleChange('textColor', e.target.value)}
                     className="flex-1 h-10 px-3 rounded-md border border-neutral-300 text-sm uppercase font-mono"
                   />
                 </div>
