@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-syne: "Syne", sans-serif;
+  --font-space: "Space Grotesk", sans-serif;
+  --font-work: "Work Sans", sans-serif;
+}
